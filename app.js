@@ -22,10 +22,6 @@ app.use(function(req, res, next) {
     console.log(`started up at ${port}`);
 });
 
-app.get('/test', (req, res) => {
-    res.status(200).send('ok')
-});
-
 // Task Routes
 app.get('/tasks', (req, res) => {
     // console.log('getting tasks')
