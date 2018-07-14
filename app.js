@@ -28,7 +28,7 @@ app.get('/test', (req, res) => {
 
 // Task Routes
 app.get('/tasks', (req, res) => {
-    console.log('getting tasks')
+    // console.log('getting tasks')
     Task.find().populate('project').then((tasks) => {
         res.send({tasks});
     })
@@ -37,7 +37,7 @@ app.get('/tasks', (req, res) => {
 });
 
 app.post('/tasks', (req, res) => {
-    console.log('posting task ' + req.body.name + req.body.project)
+    // console.log('posting task ' + req.body.name + req.body.project)
     const projectName = req.body.project;
 
     Project.findOne({
@@ -60,11 +60,25 @@ app.post('/tasks', (req, res) => {
         });
     });
  
-})
+});
+
+app.put('/tasks/edit/:id', (req, res) => {
+    
+    let id = req.params.id;
+    let inprogress = req.body.inprogress;
+    let completed = req.body.completed;
+
+    // Model.findOneAndUpdate(query, { name: 'jason bourne' }, options, callback)
+    Task.findOneAndUpdate( {_id: id}, { inprogress: inprogress, completed: completed} ).then((doc) => {
+        res.send(doc)
+        console.log('edit task successful')
+    });
+    
+});
 
 // Project Routes
 app.get('/projects', (req, res) => {
-    console.log('getting projects')
+    // console.log('getting projects')
     Project.find().then((projects) => {
         res.send({projects});
     });
@@ -73,7 +87,7 @@ app.get('/projects', (req, res) => {
 });
 
 app.post('/projects', (req, res) => {
-    console.log('posting project' + req.body.name);
+    // console.log('posting project' + req.body.name);
 
     const project = new Project({
         name: req.body.name
