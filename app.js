@@ -33,13 +33,13 @@ app.get('/tasks', (req, res) => {
 });
 
 app.post('/tasks', (req, res) => {
-    // console.log('posting task ' + req.body.name + req.body.project)
+    console.log('posting task ' + req.body.name + req.body.project)
     const projectName = req.body.project;
 
     Project.findOne({
         name: projectName
     }).then((project) => {
-        //console.log(project);
+        console.log('project is ' + project);
         const projectID = ObjectID(project._id);
         // console.log(projectID)
         const task = new Task({
@@ -59,12 +59,10 @@ app.post('/tasks', (req, res) => {
 });
 
 app.put('/tasks/edit/:id', (req, res) => {
-    
     let id = req.params.id;
     let inprogress = req.body.inprogress;
     let completed = req.body.completed;
 
-    // Model.findOneAndUpdate(query, { name: 'jason bourne' }, options, callback)
     Task.findOneAndUpdate( {_id: id}, { inprogress: inprogress, completed: completed} ).then((doc) => {
         res.send(doc)
         console.log('edit task successful')
@@ -104,23 +102,3 @@ app.get('/populated', (req, res) => {
         res.send({tasks});
     })
 });
-
-/*
-app.get('/lessons/:id', (req, res) => {
-    var id = req.params.id;
-    
-    if (!ObjectID.isValid(id)) {
-        return res.status(404).send();
-    }
-
-   Lesson.findById(id).then((lesson) => {
-    if (!lesson) {
-        return res.status(404).send();
-    }
-
-    res.send({lesson});
-   }).catch((e) => {
-    res.status(400).send();
-   })
-});
-*/
