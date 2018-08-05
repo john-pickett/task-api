@@ -84,7 +84,8 @@ app.post('/projects', (req, res) => {
     // console.log('posting project' + req.body.name);
 
     const project = new Project({
-        name: req.body.name
+        name: req.body.name,
+        notes: 'Notes here...'
     });
     project.save().then((doc) => {
         res.send(doc);
