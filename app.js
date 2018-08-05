@@ -67,7 +67,6 @@ app.put('/tasks/edit/:id', (req, res) => {
         res.send(doc)
         console.log('edit task successful')
     });
-    
 });
 
 // Project Routes
@@ -91,6 +90,16 @@ app.post('/projects', (req, res) => {
         res.send(doc);
     }, (e) => {
         res.status(400).send(e);
+    });
+});
+
+app.put('/projects/edit/:id', (req, res) => {
+    let id = req.params.id;
+    let updatedNotes = req.body.notes;
+
+    Project.findOneAndUpdate( {_id: id}, { notes: updatedNotes }, { new: true }).then((doc) => {
+        res.send(doc);
+        console.log('notes updated successfully');
     });
 });
 
