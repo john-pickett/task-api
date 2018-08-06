@@ -63,7 +63,7 @@ app.put('/tasks/edit/:id', (req, res) => {
     let inprogress = req.body.inprogress;
     let completed = req.body.completed;
 
-    Task.findOneAndUpdate( {_id: id}, { inprogress: inprogress, completed: completed} ).then((doc) => {
+    Task.findOneAndUpdate( {_id: id}, { inprogress: inprogress, completed: completed}, { new: true } ).then((doc) => {
         res.send(doc)
         console.log('edit task successful')
     });
